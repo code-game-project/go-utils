@@ -25,12 +25,13 @@ func LatestCGEVersion() (string, error) {
 }
 
 // CGGenEvents downloads and executes the correct version of cg-gen-events.
-func CGGenEvents(cgeVersion, outputDir, url, language string) error {
+// cgePath can be either a filepath or a url starting with either http:// or https://.
+func CGGenEvents(cgeVersion, outputDir, cgePath, languages string) error {
 	exeName, err := installCGGenEvents(cgeVersion)
 	if err != nil {
 		return err
 	}
-	_, err = exec.Execute(true, filepath.Join(cgGenEventsPath, exeName), url, "--languages", language, "--output", outputDir)
+	_, err = exec.Execute(true, filepath.Join(cgGenEventsPath, exeName), cgePath, "-l", languages, "-o", outputDir)
 	return err
 }
 
