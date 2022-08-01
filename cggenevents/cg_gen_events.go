@@ -27,7 +27,7 @@ func LatestCGEVersion() (string, error) {
 // CGGenEvents downloads and executes the correct version of cg-gen-events.
 // cgePath can be either a filepath or a url starting with either http:// or https://.
 func CGGenEvents(cgeVersion, outputDir, cgePath, languages string) error {
-	exeName, err := installCGGenEvents(cgeVersion)
+	exeName, err := InstallCGGenEvents(cgeVersion)
 	if err != nil {
 		return err
 	}
@@ -35,8 +35,8 @@ func CGGenEvents(cgeVersion, outputDir, cgePath, languages string) error {
 	return err
 }
 
-// installCGGenEvents installs the correct version of cg-gen-events if neccessary.
-func installCGGenEvents(cgeVersion string) (string, error) {
+// InstallCGGenEvents installs the correct version of cg-gen-events if neccessary.
+func InstallCGGenEvents(cgeVersion string) (string, error) {
 	version, err := external.GithubTagFromVersion("code-game-project", "cg-gen-events", cgeVersion)
 	if err != nil {
 		return "", err
