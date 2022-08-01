@@ -71,7 +71,7 @@ func execute(lang, libraryVersion, projectType string, data []byte, args ...stri
 
 	programName := filepath.Join(modulesPath, lang, exeName)
 	if _, err := exec.LookPath(programName); err != nil {
-		return fmt.Errorf("'%s' ist not installed!", programName)
+		return fmt.Errorf("'%s' is not installed!", programName)
 	}
 
 	configFile, err := os.CreateTemp("", "codegame-cli-module-config-*.json")
