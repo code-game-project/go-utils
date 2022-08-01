@@ -64,6 +64,22 @@ func ListSessions() (map[string][]string, error) {
 	return result, nil
 }
 
+// ListSessionsOfGame returns a list of usernames for the game.
+func ListSessionsOfGame(gameURL string) ([]string, error) {
+	userFiles, err := os.ReadDir(filepath.Join(sessionsPath, url.PathEscape(gameURL)))
+	if err != nil {
+		return nil, err
+	}
+	users := make([]string, 0, len(userFiles))
+	for _, dir := range userFiles {
+		if !dir.IsDir() && strings.HasSuffix(dir.Name(), ".json") {
+			users = append(users, string(dir.Name()[:len(dir.Name())-5]))
+		}
+	}
+	return users, nil
+}
+
+// Load a session from the session store.
 func LoadSession(gameURL, username string) (Session, error) {
 	data, err := os.ReadFile(filepath.Join(sessionsPath, url.PathEscape(gameURL), username+".json"))
 	if err != nil {
@@ -79,6 +95,7 @@ func LoadSession(gameURL, username string) (Session, error) {
 	return session, err
 }
 
+// Save the session to the session store.
 func (s Session) Save() error {
 	if s.GameURL == "" {
 		return errors.New("empty game url")
@@ -97,6 +114,7 @@ func (s Session) Save() error {
 	return os.WriteFile(filepath.Join(dir, s.Username+".json"), data, 0644)
 }
 
+// Remove the session from the session store.
 func (s Session) Remove() error {
 	if s.GameURL == "" {
 		return nil
