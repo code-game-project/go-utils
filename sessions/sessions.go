@@ -64,8 +64,29 @@ func ListSessions() (map[string][]string, error) {
 	return result, nil
 }
 
-// ListSessionsOfGame returns a list of usernames for the game.
-func ListSessionsOfGame(gameURL string) ([]string, error) {
+// ListGames returns a list of all game URLs in the session store.
+func ListGames() ([]string, error) {
+	gameDirs, err := os.ReadDir(filepath.Join(sessionsPath))
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([]string, 0, len(gameDirs))
+	for _, dir := range gameDirs {
+		if !dir.IsDir() {
+			continue
+		}
+		unescaped, err := url.PathUnescape(dir.Name())
+		if err == nil {
+			result = append(result, unescaped)
+		}
+	}
+
+	return result, nil
+}
+
+// ListUsernames returns a list of usernames for the game.
+func ListUsernames(gameURL string) ([]string, error) {
 	userFiles, err := os.ReadDir(filepath.Join(sessionsPath, url.PathEscape(gameURL)))
 	if err != nil {
 		return nil, err
@@ -119,5 +140,15 @@ func (s Session) Remove() error {
 	if s.GameURL == "" {
 		return nil
 	}
-	return os.Remove(filepath.Join(sessionsPath, url.PathEscape(s.GameURL), s.Username+".json"))
+	dir := filepath.Join(sessionsPath, url.PathEscape(s.GameURL))
+	err := os.Remove(filepath.Join(dir, s.Username+".json"))
+	if err != nil {
+		return err
+	}
+
+	dirs, err := os.ReadDir(dir)
+	if err == nil && len(dirs) == 0 {
+		os.Remove(dir)
+	}
+	return nil
 }
