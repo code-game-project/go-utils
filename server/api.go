@@ -21,7 +21,7 @@ func NewAPI(url string) (*API, error) {
 		baseURL: external.BaseURL("http", tls, url),
 		http:    http.DefaultClient,
 	}
-	api.http.Timeout = 10 * time.Second
+	api.http.Timeout = 5 * time.Second
 
 	resp, err := api.http.Get(api.baseURL + "/api/info")
 	if err != nil {

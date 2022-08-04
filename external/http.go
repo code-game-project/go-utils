@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"mime"
+	"net"
 	"net/http"
 	"net/url"
 	"strings"
@@ -41,7 +42,7 @@ func IsTLS(trimmedURL string) bool {
 		host = host + ":443"
 	}
 
-	conn, err := tls.Dial("tcp", host, &tls.Config{})
+	conn, err := tls.DialWithDialer(&net.Dialer{Timeout: 5 * time.Second}, "tcp", host, &tls.Config{})
 	if err != nil {
 		return false
 	}
