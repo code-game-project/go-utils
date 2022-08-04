@@ -9,7 +9,7 @@ import (
 )
 
 func (a *API) GetCGEFile() (string, error) {
-	res, err := http.Get(a.baseURL + "/events")
+	res, err := a.http.Get(a.baseURL + "/events")
 	if err != nil || res.StatusCode != http.StatusOK || (!external.HasContentType(res.Header, "text/plain") && !external.HasContentType(res.Header, "application/octet-stream")) {
 		return "", fmt.Errorf("Couldn't access /events endpoint.")
 	}

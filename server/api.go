@@ -3,12 +3,14 @@ package server
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/code-game-project/go-utils/external"
 )
 
 type API struct {
 	baseURL string
+	http    *http.Client
 }
 
 func NewAPI(url string) (*API, error) {
@@ -17,9 +19,11 @@ func NewAPI(url string) (*API, error) {
 
 	api := &API{
 		baseURL: external.BaseURL("http", tls, url),
+		http:    http.DefaultClient,
 	}
+	api.http.Timeout = 10 * time.Second
 
-	resp, err := http.Get(api.baseURL + "/api/info")
+	resp, err := api.http.Get(api.baseURL + "/api/info")
 	if err != nil {
 		return nil, fmt.Errorf("Cannot reach %s.", api.baseURL)
 	}

@@ -13,7 +13,7 @@ func (a *API) GetPlayers(gameId string) (map[string]string, error) {
 		Players map[string]string `json:"players"`
 	}
 	url := a.baseURL + "/games/" + gameId + "/players"
-	res, err := http.Get(url)
+	res, err := a.http.Get(url)
 	if err != nil || res.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("Couldn't access %s.", url)
 	}

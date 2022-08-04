@@ -19,7 +19,7 @@ type GameInfo struct {
 
 func (a *API) FetchGameInfo() (GameInfo, error) {
 	url := a.baseURL + "/info"
-	res, err := http.Get(url)
+	res, err := a.http.Get(url)
 	if err != nil || res.StatusCode != http.StatusOK {
 		return GameInfo{}, fmt.Errorf("Couldn't access %s.", url)
 	}
