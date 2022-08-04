@@ -41,7 +41,7 @@ func IsTLS(trimmedURL string) bool {
 		host = host + ":443"
 	}
 
-	conn, err := tls.Dial("tcp", url.Host, &tls.Config{})
+	conn, err := tls.Dial("tcp", host, &tls.Config{})
 	if err != nil {
 		return false
 	}
