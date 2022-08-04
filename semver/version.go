@@ -41,7 +41,7 @@ func CompatibleVersion(versions map[string]string, version string) string {
 		}
 	}
 	if len(compatibleMinorVersions) == 0 {
-		cli.Warn("No compatible version found. Using version.")
+		cli.Warn("No compatible version found. Using latest version.")
 		return "latest"
 	}
 
@@ -52,10 +52,10 @@ func CompatibleVersion(versions map[string]string, version string) string {
 		return "latest"
 	}
 
-	// check closest minor version above requested
+	// check closest minor version below requested
 	closestMinor := -1
 	for _, v := range compatibleMinorVersions {
-		if v > minor && (closestMinor == -1 || closestMinor-minor > v-minor) {
+		if v < minor && (closestMinor == -1 || minor-closestMinor > minor-v) {
 			closestMinor = v
 		}
 	}
@@ -65,10 +65,10 @@ func CompatibleVersion(versions map[string]string, version string) string {
 		return v
 	}
 
-	// check closest minor version below requested
+	// check closest minor version above requested
 	closestMinor = -1
 	for _, v := range compatibleMinorVersions {
-		if v < minor && (closestMinor == -1 || minor-closestMinor > minor-v) {
+		if v > minor && (closestMinor == -1 || closestMinor-minor > v-minor) {
 			closestMinor = v
 		}
 	}
