@@ -31,7 +31,7 @@ func (a *API) FetchGameInfo() (GameInfo, error) {
 	var data GameInfo
 	err = json.NewDecoder(res.Body).Decode(&data)
 	if err != nil || data.Name == "" || data.CGVersion == "" {
-		return GameInfo{}, fmt.Errorf("Couldn't decode /info data.")
+		return GameInfo{}, fmt.Errorf("Couldn't decode response data: %s", err)
 	}
 
 	return data, nil
