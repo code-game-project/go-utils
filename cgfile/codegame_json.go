@@ -21,7 +21,9 @@ func LoadCodeGameFile(dir string) (*CodeGameFileData, error) {
 	}
 	defer file.Close()
 
-	data := &CodeGameFileData{}
+	data := &CodeGameFileData{
+		LangConfig: make(map[string]any),
+	}
 	err = json.NewDecoder(file).Decode(data)
 	if err != nil {
 		return nil, err
