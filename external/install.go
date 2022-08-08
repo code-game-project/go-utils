@@ -42,7 +42,7 @@ func InstallProgram(name, filename, url, version, path string) (string, error) {
 	}
 	defer res.Body.Close()
 
-	os.MkdirAll(path, 0755)
+	os.MkdirAll(path, 0o755)
 
 	binaries, err := os.ReadDir(path)
 	if err == nil {

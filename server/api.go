@@ -19,9 +19,10 @@ func NewAPI(url string) (*API, error) {
 
 	api := &API{
 		baseURL: external.BaseURL("http", tls, url),
-		http:    http.DefaultClient,
+		http: &http.Client{
+			Timeout: 5 * time.Second,
+		},
 	}
-	api.http.Timeout = 5 * time.Second
 
 	resp, err := api.http.Get(api.baseURL + "/api/info")
 	if err != nil {

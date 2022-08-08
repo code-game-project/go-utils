@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/adrg/xdg"
+
 	"github.com/code-game-project/go-utils/exec"
 	"github.com/code-game-project/go-utils/external"
 )
