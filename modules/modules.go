@@ -11,6 +11,7 @@ import (
 
 	"github.com/Bananenpro/cli"
 	"github.com/adrg/xdg"
+
 	"github.com/code-game-project/go-utils/cgfile"
 	"github.com/code-game-project/go-utils/external"
 	"github.com/code-game-project/go-utils/semver"
@@ -59,6 +60,9 @@ func ExecuteBuild(data BuildData, cgData *cgfile.CodeGameFileData) error {
 }
 
 func execute(lang, libraryVersion, projectType string, data []byte, args ...string) error {
+	if lang == "ts" {
+		lang = "js"
+	}
 	version, err := findModuleVersion(lang, libraryVersion, projectType)
 	if err != nil {
 		return err
