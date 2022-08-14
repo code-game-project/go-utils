@@ -43,6 +43,10 @@ type BuildData struct {
 	Lang string `json:"lang"`
 	// Output contains the output file name.
 	Output string `json:"output"`
+	// The target OS for compiled languages. (possible values: current,windows,macos,linux)
+	OS string `json:"os"`
+	// The target architecture for compiled languages. (possible values: current,x64,x86)
+	Arch string `json:"arch"`
 }
 
 func ReadCommandConfig[T any]() (T, error) {
