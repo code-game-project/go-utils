@@ -45,7 +45,7 @@ type BuildData struct {
 	Output string `json:"output"`
 	// The target OS for compiled languages. (possible values: current,windows,macos,linux)
 	OS string `json:"os"`
-	// The target architecture for compiled languages. (possible values: current,x64,x86)
+	// The target architecture for compiled languages. (possible values: current,x64,x86,arm32,arm64)
 	Arch string `json:"arch"`
 }
 
