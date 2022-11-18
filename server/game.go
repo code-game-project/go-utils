@@ -14,12 +14,18 @@ type GameListEntry struct {
 	Protected bool   `json:"protected"`
 }
 
-func (a *API) ListGames() (private int, public []GameListEntry, err error) {
+func (a *API) ListGames(onlyUnprotected, onlyProtected bool) (private int, public []GameListEntry, err error) {
 	type response struct {
 		Private int             `json:"private"`
 		Public  []GameListEntry `json:"public"`
 	}
 	url := a.baseURL + "/games"
+	if onlyUnprotected && !onlyProtected {
+		url += "?protected=false"
+	}
+	if onlyProtected && !onlyUnprotected {
+		url += "?protected=true"
+	}
 	res, err := a.http.Get(url)
 	if err != nil || res.StatusCode != http.StatusOK {
 		return 0, nil, fmt.Errorf("Couldn't access %s.", url)
