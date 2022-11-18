@@ -9,8 +9,9 @@ import (
 )
 
 type GameListEntry struct {
-	Id      string `json:"id"`
-	Players int    `json:"players"`
+	Id        string `json:"id"`
+	Players   int    `json:"players"`
+	Protected bool   `json:"protected"`
 }
 
 func (a *API) ListGames() (private int, public []GameListEntry, err error) {
