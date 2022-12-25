@@ -7,11 +7,12 @@ import (
 )
 
 type CodeGameFileData struct {
-	Game       string         `json:"game"`
-	Type       string         `json:"type"`
-	Lang       string         `json:"lang"`
-	LangConfig map[string]any `json:"lang_config,omitempty"`
-	URL        string         `json:"url,omitempty"`
+	Game        string         `json:"game"`
+	GameVersion string         `json:"game_version,omitempty"`
+	Type        string         `json:"type"`
+	Lang        string         `json:"lang"`
+	LangConfig  map[string]any `json:"lang_config,omitempty"`
+	URL         string         `json:"url,omitempty"`
 }
 
 func LoadCodeGameFile(dir string) (*CodeGameFileData, error) {
@@ -33,7 +34,7 @@ func LoadCodeGameFile(dir string) (*CodeGameFileData, error) {
 }
 
 func (c *CodeGameFileData) Write(dir string) error {
-	os.MkdirAll(dir, 0755)
+	os.MkdirAll(dir, 0o755)
 
 	file, err := os.Create(filepath.Join(dir, ".codegame.json"))
 	if err != nil {

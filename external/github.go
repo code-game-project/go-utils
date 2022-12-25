@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/Bananenpro/cli"
+
 	"github.com/code-game-project/go-utils/semver"
 )
 
