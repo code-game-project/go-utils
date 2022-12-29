@@ -24,7 +24,7 @@ type config struct {
 
 var Default = Config{
 	ShareURL: "share.code-game.org",
-	DevPort:  8080,
+	DevPort:  3740, // *C*ode *G*ame *D*ev (C: 3, G: 7, D: 4)
 }
 
 var configDir = filepath.Join(xdg.ConfigHome, "codegame")
