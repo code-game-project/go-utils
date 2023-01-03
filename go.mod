@@ -7,7 +7,7 @@ require (
 	github.com/adrg/xdg v0.4.0
 )
 
-retract v0.3.2
+retract v0.3.3
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.5 // indirect
