@@ -7,6 +7,8 @@ require (
 	github.com/adrg/xdg v0.4.0
 )
 
+retract v0.3.2
+
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.5 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
